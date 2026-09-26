@@ -1,7 +1,8 @@
 #include <stdio.h>
 
 int main() {
-    int saque100, saqued50, saqued20, saqued10, saqued5, estoque100, estoque50, estoque20, estoque10, estoque5;
+    int saque100, saqued50, saqued20, saqued10, saqued5, 
+    int estoque100 = 0, estoque50 = 0, estoque20 = 0, estoque10 = 0, estoque5 = 0;
     int valor_usuario, opcao;
     
     do {
@@ -16,6 +17,11 @@ int main() {
          
          if (opcao == 0){
                    printf("Voce escolheu ver quantidade de dinheiro\n");
+                   printf("Notas de 100: %d", estoque100);
+                   printf("Notas de 50: %d", estoque50);
+                   printf("Notas de 20: %d", estoque20);
+                   printf("Notas de 10: %d", estoque10);
+                   printf("Notas de 5: %d", estoque5);
                    
          else if (opcao == 1){
                    printf("Voce escolheu sacar dinheiro\n");
