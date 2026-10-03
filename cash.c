@@ -1,110 +1,114 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main() {
-    // Variáveis para contagem de notas entregues num saque
-    int saque100, saque50, saque20, saque10, saque5;
-    
-    // Estoque inicial de notas na máquina (começam com 0 ou podes alterar para testar)
-    int estoque100 = 10, estoque50 = 10, estoque20 = 10, estoque10 = 10, estoque5 = 10;
-    
-    int valor_usuario, opcao;
-    
+    int estoque100 = 0, estoque50 = 0, estoque20 = 0, estoque10 = 0;
+    int opcao;
+
     do {
-        printf("\n=== Sistema de Cash Dispenser ===\n");
-        printf("0 - Mostrar quantidade de dinheiro\n");
-        printf("1 - Sacar dinheiro no Cash Dispenser\n");
-        printf("2 - Adicionar dinheiro no Cash Dispenser\n");
-        printf("3 - Sair do sistema\n");
+        printf("UNICSUL - Simulador de Saque de ATM - versao 2026\n");
+        printf("01/09/2026\n\n");
+        printf("Menu\n");
+        printf("0 - Mostrar quantidade de notas disponiveis de cada valor\n");
+        printf("1 - Abastecer ATM com quantidade de notas para cada valor\n");
+        printf("2 - Sacar dinheiro no ATM\n");
+        printf("9 - Sair\n");
+        printf("Escolha operacao: ");
         
-        printf("Escolha uma opcao: ");
-        scanf("%d", &opcao);
-        
-        if (opcao == 0) {
-            printf("\n--- Estoque Atual de Notas ---\n");
-            printf("Notas de 100: %d\n", estoque100);
-            printf("Notas de 50: %d\n", estoque50);
-            printf("Notas de 20: %d\n", estoque20);
-            printf("Notas de 10: %d\n", estoque10);
-            printf("Notas de 5: %d\n", estoque5);
+        if (scanf("%d", &opcao) != 1) {
+
+            fflush(stdin);
+            opcao = -1;
         }
-        else if (opcao == 1) {
-            printf("\n--- Sacar Dinheiro ---\n");
-            printf("Digite o valor que deseja sacar: R$ ");
-            scanf("%d", &valor_usuario);
-            
-            if (valor_usuario <= 0) {
-                printf("Valor invalido para saque!\n");
-            } else {
-                // Cálculo das notas (priorizando as maiores)
-                saque100 = valor_usuario / 100;
-                valor_usuario = valor_usuario % 100;
+
+        switch (opcao) {
+            case 0: {
+                printf("\n--- Quantidade de Notas Disponiveis ---\n");
+                printf("Notas 10: %d\n", estoque10);
+                printf("Notas 20: %d\n", estoque20);
+                printf("Notas 50: %d\n", estoque50);
+                printf("Notas 100: %d\n", estoque100);
+                break;
+            }
+            case 1: {
+                int add100 = 0, add50 = 0, add20 = 0, add10 = 0;
+                printf("\n--- Abastecer ATM ---\n");
                 
-                saque50 = valor_usuario / 50;
-                valor_usuario = valor_usuario % 50;
-                
-                saque20 = valor_usuario / 20;
-                valor_usuario = valor_usuario % 20;
-                
-                saque10 = valor_usuario / 10;
-                valor_usuario = valor_usuario % 10;
-                
-                saque5 = valor_usuario / 5;
-                valor_usuario = valor_usuario % 5;
-                
-                if (valor_usuario > 0) {
-                    printf("Erro: O caixa nao possui notas para entregar o valor exato.\n");
-                } else {
-                    printf("\nSaque realizado com sucesso! Notas entregues:\n");
-                    if (saque100 > 0) printf("- Notas de 100: %d\n", saque100);
-                    if (saque50 > 0)  printf("- Notas de 50: %d\n", saque50);
-                    if (saque20 > 0)  printf("- Notas de 20: %d\n", saque20);
-                    if (saque10 > 0)  printf("- Notas de 10: %d\n", saque10);
-                    if (saque5 > 0)   printf("- Notas de 5: %d\n", saque5);
+                printf("Notas 10: ");
+                scanf("%d", &add10);
+                printf("Notas 20: ");
+                scanf("%d", &add20);
+                printf("Notas 50: ");
+                scanf("%d", &add50);
+                printf("Notas 100: ");
+                scanf("%d", &add100);
+
+                if (add10 > 0) estoque10 += add10;
+                if (add20 > 0) estoque20 += add20;
+                if (add50 > 0) estoque50 += add50;
+                if (add100 > 0) estoque100 += add100;
+
+                printf("\nATM abastecido com sucesso!\n");
+                break;
+            }
+            case 2: {
+                int valor, restante;
+                int q100 = 0, q50 = 0, q20 = 0, q10 = 0;
+
+                printf("\n--- Saque de Dinheiro ---\n");
+                printf("Valor do saque: ");
+                scanf("%d", &valor);
+
+                if (valor <= 0 || valor % 10 != 0) {
+                    printf("\nValor invalido! O valor do saque deve ser positivo e multiplo de 10.\n");
+                    break;
                 }
+
+                restante = valor;
+
+                q100 = restante / 100;
+                if (q100 > estoque100) q100 = estoque100;
+                restante -= q100 * 100;
+
+                q50 = restante / 50;
+                if (q50 > estoque50) q50 = estoque50;
+                restante -= q50 * 50;
+
+                q20 = restante / 20;
+                if (q20 > estoque20) q20 = estoque20;
+                restante -= q20 * 20;
+
+                q10 = restante / 10;
+                if (q10 > estoque10) q10 = estoque10;
+                restante -= q10 * 10;
+
+                if (restante > 0) {
+                    printf("\nSaque nao realizado: Notas indisponiveis no caixa para compor o valor solicitado.\n");
+                } else {
+                    estoque100 -= q100;
+                    estoque50 -= q50;
+                    estoque20 -= q20;
+                    estoque10 -= q10;
+
+                    printf("\nSaque realizado com sucesso\n");
+                    printf("Valor: %d\n", valor);
+                    printf("Notas 10: %d\n", q10);
+                    printf("Notas 20: %d\n", q20);
+                    printf("Notas 50: %d\n", q50);
+                    printf("Notas 100: %d\n", q100);
+                }
+                break;
             }
-        }
-        else if (opcao == 2) {
-            int tipo_nota, quantidade;
-            
-            printf("\n--- Abastecer Caixa Dispenser ---\n");
-            printf("Qual nota deseja adicionar (100, 50, 20, 10, 5)? ");
-            scanf("%d", &tipo_nota);
-            
-            printf("Quantas unidades dessa nota deseja adicionar? ");
-            scanf("%d", &quantidade);
-            
-            if (tipo_nota == 100) {
-                estoque100 += quantidade;
-                printf("Sucesso! Adicionadas %d notas de 100.\n", quantidade);
-            }
-            else if (tipo_nota == 50) {
-                estoque50 += quantidade;
-                printf("Sucesso! Adicionadas %d notas de 50.\n", quantidade);
-            }
-            else if (tipo_nota == 20) {
-                estoque20 += quantidade;
-                printf("Sucesso! Adicionadas %d notas de 20.\n", quantidade);
-            }
-            else if (tipo_nota == 10) {
-                estoque10 += quantidade;
-                printf("Sucesso! Adicionadas %d notas de 10.\n", quantidade);
-            }
-            else if (tipo_nota == 5) {
-                estoque5 += quantidade;
-                printf("Sucesso! Adicionadas %d notas de 5.\n", quantidade);
-            }
-            else {
-                printf("Nota invalida! O caixa so aceita notas de 100, 50, 20, 10 ou 5.\n");
-            }
-        }
-        else if (opcao == 3) {
-            printf("\nSaindo do sistema. Ate logo!\n");
-        }
-        else {
-            printf("\nOpcao invalida!\n");
+            case 9:
+                printf("\nEncerrando o sistema de ATM. Ate logo!\n");
+                break;
+
+            default:
+                printf("\nOpcao invalida! Tente novamente.\n");
+                break;
         }
 
-    } while (opcao != 3);
+    } while (opcao != 9);
 
-    return 0;    
+    return 0;
 }
