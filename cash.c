@@ -2,17 +2,17 @@
 #include <stdlib.h>
 
 int main() {
-    int estoque100 = 0, estoque50 = 0, estoque20 = 0, estoque10 = 0, estoque5 = 0;
+    int estoque100 = 0, estoque50 = 0, estoque20 = 0, estoque10 = 0;
     int opcao;
 
     do {
         printf("UNICSUL - Simulador de Cash Dispenser - versao 2026\n");
         printf("01/09/2026\n\n");
         printf("Menu: \n");
-        printf("1 - Ver quantidade de dinheiro no cash\n");
-        printf("2 - Adicionar dinheiro no cash\n");
-        printf("3 - Sacar dinheiro no cash\n");
-        printf("4 - Sair\n");
+        printf("0 - Mostrar quantidade de notas disponiveis de cada valor\n");
+        printf("1 - Abastecer ATM com quantidade de notas para cada valor\n");
+        printf("2 - Sacar dinheiro no ATM\n");
+        printf("9 - Sair\n");
         printf("Escolha operacao: ");
         
         if (scanf("%d", &opcao) != 1) {
@@ -22,21 +22,18 @@ int main() {
         }
 
         switch (opcao) {
-            case 1: {
+            case 0: {
                 printf("\n--- Quantidade de Notas Disponiveis ---\n");
-                printf("Notas 5: %d\n", estoque5);
                 printf("Notas 10: %d\n", estoque10);
                 printf("Notas 20: %d\n", estoque20);
                 printf("Notas 50: %d\n", estoque50);
                 printf("Notas 100: %d\n", estoque100);
                 break;
             }
-            case 2: {
-                int add100 = 0, add50 = 0, add20 = 0, add10 = 0, add5 = 0;
-                printf("\n--- Adicionando dinheiro no Cash ---\n");
+            case 1: {
+                int add100 = 0, add50 = 0, add20 = 0, add10 = 0;
+                printf("\n--- Abastecer ATM ---\n");
 
-                printf("Notas 5: ");
-                scanf("%d", &add5);
                 printf("Notas 10: ");
                 scanf("%d", &add10);
                 printf("Notas 20: ");
@@ -46,7 +43,6 @@ int main() {
                 printf("Notas 100: ");
                 scanf("%d", &add100);
 
-                if (add5 > 0) estoque5 += add5;
                 if (add10 > 0) estoque10 += add10;
                 if (add20 > 0) estoque20 += add20;
                 if (add50 > 0) estoque50 += add50;
@@ -55,17 +51,17 @@ int main() {
                 printf("\nDinheiro adicionado com sucesso!\n");
                 break;
             }
-            case 3: {
+            case 2: {
                 int valor, restante;
-                int quant100 = 0, quant50 = 0, quant20 = 0, quant10 = 0, quant5 = 0;
+                int quant100 = 0, quant50 = 0, quant20 = 0, quant10 = 0;
 
-                printf("\n--- Sacar de Dinheiro ---\n");
+                printf("\n--- Sacar dinheiro no ATM ---\n");
                 printf("Valor do saque: ");
                 scanf("%d", &valor);
 
                 //o valor tem que ser maior que zero e multiplo de 10 para separar por dezena(igual dinheiro)
-                if (valor <= 0 || valor % 5 != 0) {
-                    printf("\nValor invalido! O valor do saque deve ser positivo e multiplo de 5.\n");
+                if (valor <= 0 || valor % 10 != 0) {
+                    printf("\nValor invalido! O valor do saque deve ser positivo e multiplo de 10.\n");
                     break;
                 }
 
@@ -88,10 +84,6 @@ int main() {
                 if (quant10 > estoque10) quant10 = estoque10;
                 restante -= quant10 * 10;
 
-                quant5 = restante / 5;
-                if (quant5 > estoque5) quant5 = estoque5;
-                restante -= quant5 * 5;
-
                 if (restante > 0) {
                     printf("\nSaque nao realizado: Notas indisponiveis no caixa para compor o valor solicitado.\n");
                 } else {
@@ -99,11 +91,9 @@ int main() {
                     estoque50 -= quant50;
                     estoque20 -= quant20;
                     estoque10 -= quant10;
-                    estoque5 -= quant5;
 
                     printf("\nSaque realizado com sucesso\n");
                     printf("Valor: %d\n", valor);
-                    printf("Notas 5: %d\n", quant5);
                     printf("Notas 10: %d\n", quant10);
                     printf("Notas 20: %d\n", quant20);
                     printf("Notas 50: %d\n", quant50);
@@ -111,7 +101,7 @@ int main() {
                 }
                 break;
             }
-            case 4:
+            case 9:
                 printf("\nEncerrando o sistema de Cash. Ate logo!\n");
                 break;
 
@@ -120,7 +110,7 @@ int main() {
                 break;
         }
 
-    } while (opcao != 4);
+    } while (opcao != 9);
 
     return 0;
 }
