@@ -57,7 +57,7 @@ int main() {
             }
             case 3: {
                 int valor, restante;
-                int quant100 = 0, quant50 = 0, quant20 = 0, quant10 = 0, quant10 = 0;
+                int quant100 = 0, quant50 = 0, quant20 = 0, quant10 = 0, quant5 = 0;
 
                 printf("\n--- Sacar de Dinheiro ---\n");
                 printf("Valor do saque: ");
