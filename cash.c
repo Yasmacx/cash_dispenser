@@ -6,17 +6,17 @@ int main() {
     int opcao;
 
     do {
-        printf("UNICSUL - Simulador de Saque de ATM - versao 2026\n");
+        printf("UNICSUL - Simulador de Cash Dispenser - versao 2026\n");
         printf("01/09/2026\n\n");
-        printf("Menu\n");
-        printf("0 - Mostrar quantidade de notas disponiveis de cada valor\n");
-        printf("1 - Abastecer ATM com quantidade de notas para cada valor\n");
-        printf("2 - Sacar dinheiro no ATM\n");
-        printf("9 - Sair\n");
+        printf("Menu: \n");
+        printf("1 - Ver quantidade de dinheiro no cash\n");
+        printf("2 - Adicionar dinheiro no cash\n");
+        printf("3 - Sacar dinheiro no cash\n");
+        printf("4 - Sair\n");
         printf("Escolha operacao: ");
         
         if (scanf("%d", &opcao) != 1) {
-
+        //essa função é pra limpar o lixo de memoria quando acontece um erro de validação de int, esse comando faz que não entre em loop no erro
             fflush(stdin);
             opcao = -1;
         }
