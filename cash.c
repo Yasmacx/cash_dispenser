@@ -32,7 +32,7 @@ int main() {
                 break;
             }
             case 2: {
-                int add100 = 0, add50 = 0, add20 = 0, add10 = 0, add5;
+                int add100 = 0, add50 = 0, add20 = 0, add10 = 0, add5 = 0;
                 printf("\n--- Adicionando dinheiro no Cash ---\n");
 
                 printf("Notas 5: ");
