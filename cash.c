@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 int main() {
-    int estoque100 = 0, estoque50 = 0, estoque20 = 0, estoque10 = 0;
+    int estoque100 = 0, estoque50 = 0, estoque20 = 0, estoque10 = 0, estoque5 = 0;
     int opcao;
 
     do {
@@ -24,6 +24,7 @@ int main() {
         switch (opcao) {
             case 1: {
                 printf("\n--- Quantidade de Notas Disponiveis ---\n");
+                printf("Notas 10: %d\n", estoque5);
                 printf("Notas 10: %d\n", estoque10);
                 printf("Notas 20: %d\n", estoque20);
                 printf("Notas 50: %d\n", estoque50);
@@ -31,9 +32,11 @@ int main() {
                 break;
             }
             case 2: {
-                int add100 = 0, add50 = 0, add20 = 0, add10 = 0;
+                int add100 = 0, add50 = 0, add20 = 0, add10 = 0, add5;
                 printf("\n--- Adicionando dinheiro no Cash ---\n");
-                
+
+                printf("Notas 5: ");
+                scanf("%d", &add5);
                 printf("Notas 10: ");
                 scanf("%d", &add10);
                 printf("Notas 20: ");
@@ -43,17 +46,18 @@ int main() {
                 printf("Notas 100: ");
                 scanf("%d", &add100);
 
+                if (add5 > 0) estoque5 += add5;
                 if (add10 > 0) estoque10 += add10;
                 if (add20 > 0) estoque20 += add20;
                 if (add50 > 0) estoque50 += add50;
                 if (add100 > 0) estoque100 += add100;
 
-                printf("\nCash adicionado com sucesso!\n");
+                printf("\nDinheiro adicionado com sucesso!\n");
                 break;
             }
             case 3: {
                 int valor, restante;
-                int quant100 = 0, quant50 = 0, quant20 = 0, quant10 = 0;
+                int quant100 = 0, quant50 = 0, quant20 = 0, quant10 = 0, quant10 = 0;
 
                 printf("\n--- Sacar de Dinheiro ---\n");
                 printf("Valor do saque: ");
@@ -84,6 +88,10 @@ int main() {
                 if (quant10 > estoque10) quant10 = estoque10;
                 restante -= quant10 * 10;
 
+                quant5 = restante / 5;
+                if (quant5 > estoque5) quant5 = estoque5;
+                restante -= quant5 * 5;
+
                 if (restante > 0) {
                     printf("\nSaque nao realizado: Notas indisponiveis no caixa para compor o valor solicitado.\n");
                 } else {
@@ -94,6 +102,7 @@ int main() {
 
                     printf("\nSaque realizado com sucesso\n");
                     printf("Valor: %d\n", valor);
+                    printf("Notas 5: %d\n", quant5);
                     printf("Notas 10: %d\n", quant10);
                     printf("Notas 20: %d\n", quant20);
                     printf("Notas 50: %d\n", quant50);
