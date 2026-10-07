@@ -64,8 +64,8 @@ int main() {
                 scanf("%d", &valor);
 
                 //o valor tem que ser maior que zero e multiplo de 10 para separar por dezena(igual dinheiro)
-                if (valor <= 0 || valor % 10 != 0) {
-                    printf("\nValor invalido! O valor do saque deve ser positivo e multiplo de 10.\n");
+                if (valor <= 0 || valor % 5 != 0) {
+                    printf("\nValor invalido! O valor do saque deve ser positivo e multiplo de 5.\n");
                     break;
                 }
 
@@ -99,6 +99,7 @@ int main() {
                     estoque50 -= quant50;
                     estoque20 -= quant20;
                     estoque10 -= quant10;
+                    estoque5 -= quant5;
 
                     printf("\nSaque realizado com sucesso\n");
                     printf("Valor: %d\n", valor);
