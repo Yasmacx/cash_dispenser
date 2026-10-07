@@ -24,7 +24,7 @@ int main() {
         switch (opcao) {
             case 1: {
                 printf("\n--- Quantidade de Notas Disponiveis ---\n");
-                printf("Notas 10: %d\n", estoque5);
+                printf("Notas 5: %d\n", estoque5);
                 printf("Notas 10: %d\n", estoque10);
                 printf("Notas 20: %d\n", estoque20);
                 printf("Notas 50: %d\n", estoque50);
